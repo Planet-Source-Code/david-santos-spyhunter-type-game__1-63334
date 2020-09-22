@@ -1,0 +1,120 @@
+LevelEdit
+---------
+Level Editor for SpyHunter
+
+No LevelEdit = No SpyHunter! :)
+
+Tiles???
+========
+Problem:  
+
+How can we create a scrolling playing field? Create one whole level as a bitmap and scroll
+it across the screen?  That would be too big.
+
+Solution:
+
+Nintendo created this solution long ago with Mario Brothers, and all Nintendo games.  Store fixed bitmaps of parts of the level that are repeated.  Like only one block for a road, another for a wall, etc.
+
+Then make a nifty little level editor that references the blocks (or tiles) as numbers, so that nothing = 0, ladder = 1, brick = 2 etc.  The level editor works visually, but stores the position of
+the tile in an array. for example:
+
+   0000000000
+   2222122222
+   0000100000   Each number corresponds to one tile.
+   2222100000   The level editor simply changes the 
+   0000100000   tile number at the location.
+   0000100000
+   0000100222
+   0000100000
+   2222222222
+
+Okay, but how do we know if the tile will support mario, or if he will fall through?
+We can relate that information to the tile number, or ee can create another array of 
+tile-effect data for each tile:
+
+  tile 0 = 0
+  tile 1 = 0    0 means mario will fall through
+  tile 2 = 1    1 means mario will not fall through
+
+
+So, how about obstacles? Same thing as the first layer of tiles.  This new layer will be
+superimposed over the previous layer.
+
+   1 = koopa troopa
+
+   0000000000
+   0000000000
+   0001000000   
+   0000000000   A koopa troopa will appear over
+   0000000000   the left ledge of two's in the first layer
+   0000000000
+   0000000000
+   0000000000
+   0000000000
+
+
+Draw the first layer, then draw the obtacle layer.
+
+
+
+Using LevelEdit
+===============
+Creating a level
+
+1. Creating the Road Layer
+--------------------------
+
+Under Drawing Tools Select Road in the combobox.  You can drag-select to highlight more than 
+one tiles to draw on the map at the same time.
+
+Click on the Draw Button under the combobox. This will set your Pen mode to draw.
+
+Click in the map area to place you selected tile. TO change the current tile, click on another 
+tile in the Tile area.
+
+Make a road using the dustroad, cement road, and bridges.  Make road bends with the diamond 
+figures.  All you have to do is make it look neat and straight.
+
+Grass is set to slow the player down.  Water in unpassable, as are bridges, tree stumps,
+etc.  Unpassable means that the player will crash into it if he is not in a jump.
+
+The Ramp (double arrows) is set to cause a jump when the user passes over. use before
+a water trap, etc.
+
+use the scroll bar to move up/down the entire level.
+
+2.  Create the object layer.
+----------------------------
+
+Under Drawing Tools select Objects.
+
+First off, the red car must appear in the first row of the level.  put it over the road you made.  
+Put blue and black cars as you will.  Fuel objects refill the car.
+
+
+3.  Deleting Road/Objects
+-------------------------
+
+If you make a mistake, Click on the Select button underneath the combobox.
+select a tile or tiles in the map area, and press the delete key to remove the
+selected road/objects from the map.
+
+
+Passable, Slows DOwn, Causes Jump
+=================================
+These options are store in RoadInfo.Dat and determines how each road tile will affect the player.
+The Roadinfo has already been set so I wouldn't recommend fiddling with the check boxes since 
+they are automatically saved whenever you exit the program.
+
+
+EXIT
+====
+
+You may see a tile labeled EXIT under Objects. This is a special tile that causes the program to drive 
+your car off the screen and move to the next level. Please remember to add a row of EXIT tiles before you
+reach the end of your map.
+
+
+
+
+
